@@ -80,16 +80,14 @@ CLASS zcl_advent_2023_02 IMPLEMENTATION.
 
   METHOD is_impossible.
 
-    LOOP AT i_game-subset ASSIGNING FIELD-SYMBOL(<s>).
-
-      result = COND #(
+    result = REDUCE #(
+               INIT r = abap_false
+               FOR <s> IN i_game-subset
+               NEXT r = COND #(
                  WHEN <s>-color = 'red'   AND <s>-count > 12 THEN abap_true
                  WHEN <s>-color = 'green' AND <s>-count > 13 THEN abap_true
                  WHEN <s>-color = 'blue'  AND <s>-count > 14 THEN abap_true
-                 ELSE result
-              ).
-
-    ENDLOOP.
+                 ELSE r ) ).
 
   ENDMETHOD.
 
@@ -113,7 +111,7 @@ CLASS zcl_advent_2023_02 IMPLEMENTATION.
         color AS color,
         MAX( count ) AS max
       GROUP BY (  color )
-      INTO TABLE @DATA(min_config) ##ITAB_KEY_IN_SELECT ##ITAB_DB_SELECT .
+      INTO TABLE @FINAL(min_config) ##ITAB_KEY_IN_SELECT ##ITAB_DB_SELECT .
 
     result = min_config[ color = 'red' ]-max
            * min_config[ color = 'blue' ]-max
@@ -127,7 +125,7 @@ CLASS zcl_advent_2023_02 IMPLEMENTATION.
     FIND
       ALL OCCURRENCES OF PCRE `(?<count>\d+)\s(?<color>red|blue|green)[,;]?`
       IN i_line
-      RESULTS DATA(results).
+      RESULTS FINAL(results).
 
     result = VALUE #(
                FOR <result> IN results

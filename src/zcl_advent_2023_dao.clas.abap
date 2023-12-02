@@ -59,7 +59,7 @@ CLASS zcl_advent_2023_dao IMPLEMENTATION.
                                             aoc_completed = day_data-completed ).
 
     MODIFY zadvent_2023
-      FROM advent_2023.
+      FROM @advent_2023.
 
     COMMIT WORK AND WAIT.
 

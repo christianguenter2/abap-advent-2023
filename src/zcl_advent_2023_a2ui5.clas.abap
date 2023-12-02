@@ -143,8 +143,9 @@ CLASS zcl_advent_2023_a2ui5 IMPLEMENTATION.
                                            runtime_total  = aoc_day-runtime_total ).
             aoc_day-solution_run = abap_true.
 
-          CATCH cx_root.
-            client->message_box_display( text = |Class { aoc_day-class_name } could not be instantiated|
+          CATCH cx_root INTO DATA(error).
+            DATA(longtext) = error->get_longtext( ).
+            client->message_box_display( text = error->get_text( )
                                          type = 'error' ).
         ENDTRY.
 

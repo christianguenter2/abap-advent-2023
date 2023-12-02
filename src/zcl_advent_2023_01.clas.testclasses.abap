@@ -25,38 +25,49 @@ CLASS ltcl_test IMPLEMENTATION.
   METHOD part_1.
 
     DATA(part_1_result) = cut->part_1(
-VALUE #(
-( || )
-( || )
-( || )
-( || )
-( || )
-( || )
-( || )
-( || )
-) ).
+      VALUE #(
+      ( |1abc2| )
+      ( |pqr3stu8vwx| )
+      ( |a1b2c3d4e5f| )
+      ( |treb7uchet| )
+    ) ).
 
-    cl_abap_unit_assert=>assert_equals( act = part_1_result
-                                        exp = |todo| ).
+    cl_abap_unit_assert=>assert_equals( act = CONV i( part_1_result )
+                                        exp = 142 ).
 
   ENDMETHOD.
 
   METHOD part_2.
 
     DATA(part_2_result) = cut->part_2(
-VALUE #(
-( || )
-( || )
-( || )
-( || )
-( || )
-( || )
-( || )
-( || )
-) ).
+      VALUE #(
+      ( |two1nine| )
+      ( |eightwothree| )
+      ( |abcone2threexyz| )
+      ( |xtwone3four| )
+      ( |4nineeightseven2| )
+      ( |zoneight234| )
+      ( |7pqrstsixteen| )
+    ) ).
 
-    cl_abap_unit_assert=>assert_equals( act = part_2_result
-                                        exp = |todo| ).
+    cl_abap_unit_assert=>assert_equals( act = CONV i( part_2_result )
+                                        exp = 281 ).
+
+    part_2_result = cut->part_2(
+      VALUE #(
+      ( |honemkmbfbnlhtbq19twonekbp| )
+    ) ).
+
+    cl_abap_unit_assert=>assert_equals( act = CONV i( part_2_result )
+                                        exp = 11 ).
+
+    part_2_result = cut->part_2(
+      VALUE #(
+      ( |twokdkcbhtqxfc87rkgctwo| )
+    ) ).
+
+    cl_abap_unit_assert=>assert_equals( act = CONV i( part_2_result )
+                                        exp = 22 ).
 
   ENDMETHOD.
 

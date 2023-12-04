@@ -79,9 +79,9 @@ CLASS zcl_advent_2023_03 IMPLEMENTATION.
 
     LOOP AT numbers ASSIGNING FIELD-SYMBOL(<n>).
 
-      DATA(n) = CONV i( substring( val = input[ <n>-line ]
-                                   off = <n>-offset
-                                   len = <n>-length ) ).
+      FINAL(n) = CONV i( substring( val = input[ <n>-line ]
+                                    off = <n>-offset
+                                    len = <n>-length ) ).
 
       CLEAR found.
 
@@ -99,9 +99,9 @@ CLASS zcl_advent_2023_03 IMPLEMENTATION.
                  token_1 = <s>
                  token_2 = <n2> ).
 
-              DATA(n2) = CONV i( substring( val = input[ <n2>-line ]
-                                            off = <n2>-offset
-                                            len = <n2>-length ) ).
+              FINAL(n2) = CONV i( substring( val = input[ <n2>-line ]
+                                             off = <n2>-offset
+                                             len = <n2>-length ) ).
 
               found = abap_true.
               EXIT.
@@ -155,16 +155,15 @@ CLASS zcl_advent_2023_03 IMPLEMENTATION.
 
   ENDMETHOD.
 
-
   METHOD get_sum_of_parts.
 
     DATA found TYPE abap_bool.
 
     LOOP AT numbers ASSIGNING FIELD-SYMBOL(<n>).
 
-      DATA(n) = CONV i( substring( val = input[ <n>-line ]
-                                   off = <n>-offset
-                                   len = <n>-length ) ).
+      FINAL(n) = CONV i( substring( val = input[ <n>-line ]
+                                    off = <n>-offset
+                                    len = <n>-length ) ).
 
       CLEAR found.
 
